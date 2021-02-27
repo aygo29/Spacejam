@@ -42,6 +42,7 @@ class People():
             self.timesick+=1
             if self.timesick==self.rectime and random.random()<=recchance:
                 self.category="recovered"
+                infects-=1
             if self.timesick == self.rectime and random.random() >= recchance:
                 self.category="dead"
         self.wallcollision(screen)
