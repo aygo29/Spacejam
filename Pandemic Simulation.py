@@ -84,3 +84,10 @@ class People():
         elif other.sensible:
             self.xv*=-1
             self.yv*=-1
+
+
+
+
+
+
+
