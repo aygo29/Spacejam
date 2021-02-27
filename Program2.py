@@ -1,10 +1,36 @@
 import pygame, random, time
+import numpy as np
+import pylab as plt
 from model1 import People
 
 k = 1
 
 
 def main():
+    list=animate()
+    print (list)
+    if len(list)==14:
+        graphing(list)
+
+
+
+def graphing(list):
+    x=[1,2,3,4,5,6,7,8,9,10,11,12,13,14]
+    y=[1,2,3,4,5,6,7]
+
+
+    t = [i for i in range(1, 15)]
+    plt.figure('Graph 1')
+    plt.xlabel('Time')
+    plt.ylabel('Active Cases')
+    plt.title('Spread of the Virus')
+    plt.plot(t, list, 'r-', label='No precautions taken')
+    #plt.plot(t, cases2, 'b-', label='With precautions')
+    plt.legend(loc='upper right')
+    plt.interactive(False)
+    plt.show()
+
+def animate():
     t0 = time.clock()
     t = 0
     l = []
@@ -44,12 +70,12 @@ def main():
         clock.tick(fps)
 
         t1 = time.clock()
-        if round(t1 - t0) % 5 == 0 and t != round(t1 - t0):
+        if round(t1 - t0) % 5 == 0 and t != round(t1 - t0) and len(l)<=13:
             l.append(k)
             t = round(t1 - t0)
     pygame.quit()
 
 
-    print(l)
+    return l
 
 main()
