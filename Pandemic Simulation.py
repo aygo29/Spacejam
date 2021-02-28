@@ -1,14 +1,14 @@
 import pygame
 import random,math
 
-infects = 1
+infects = 1 #count for no of people infected
 dead = 0
 suscepts = 0
 recovs = 0
-maxv=20
-transmissionrate=0.25
+maxv=20 # max velocity attained by any given partice
+transmissionrate=0.6
 mortality_rate = 0.03
-recchance=0.97
+recchance=1-mortality_rate
 class People():
     colour_code={"susceptible":"grey","infected":"red","recovered":"green","dead":"black"}
     def __init__(self,x,y,category,sensible):
@@ -31,8 +31,8 @@ class People():
             self.x=self.x+self.xv
             self.y=self.y+self.yv
         if self.category!="dead" and self.sensible:
-            self.x=self.x+self.xv/5
-            self.y=self.y+self.yv/5
+            self.x=self.x+self.xv/7
+            self.y=self.y+self.yv/7
     def draw(self,screen):
         pygame.draw.circle(screen,pygame.Color(self.colour_code[self.category]),(round(self.x),round(self.y)),self.radius)
     def updation(self,screen,peoples):
@@ -45,6 +45,7 @@ class People():
                 infects-=1
             if self.timesick == self.rectime and random.random() >= recchance:
                 self.category="dead"
+                infects-=1
         self.wallcollision(screen)
         for other in peoples:
             if self!=other:
@@ -78,10 +79,10 @@ class People():
         if not (self.sensible) and not( other.sensible):
             tempx=self.xv
             tempy=self.yv
-            self.xv=other.xv
-            self.yv=other.yv
-            other.xv=tempx
-            other.yv=tempy
+            self.xv=other.xv/1
+            self.yv=other.yv/1
+            other.xv=tempx/1
+            other.yv=tempy/1
         elif other.sensible:
             self.xv*=-1
             self.yv*=-1
